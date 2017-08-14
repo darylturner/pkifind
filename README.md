@@ -11,7 +11,7 @@ Usage of pkifind:
         common name search term
   -token string
         override VAULT_TOKEN environment variable
-> ./pkifind -ca pki-test -s "mr-test"
+> ./pkifind -ca pki-test -search "mr-test"
 [
     {
         "common_name": "mr-test-1.client-test.vpn",
