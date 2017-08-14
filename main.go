@@ -110,6 +110,7 @@ func main() {
 			for _, rc := range crl.TBSCertList.RevokedCertificates {
 				if decoded.SerialNumber.String() == rc.SerialNumber.String() {
 					rev = true
+					break
 				}
 			}
 
