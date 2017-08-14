@@ -126,6 +126,7 @@ func main() {
 
 	// encode the results as json to stdout
 	jsonOut := json.NewEncoder(os.Stdout)
+	jsonOut.SetIndent("", "  ")
 	if err := jsonOut.Encode(res); err != nil {
 		log.Fatal(err)
 	}
