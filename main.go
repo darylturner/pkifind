@@ -22,6 +22,7 @@ type match struct {
 	ValidUntil time.Time `json:"valid_until"`
 	Serial     string    `json:"serial"`
 	Revoked    bool      `json:"revoked"`
+	Expired    bool      `json:"expired"`
 }
 
 func getCRL(ca *string, client *vaultapi.Logical) (cl *pkix.CertificateList, err error) {
@@ -64,7 +65,11 @@ func main() {
 		log.Fatal("please specify vault pki mount to search")
 	}
 	if *token == "" {
-		log.Fatal("please specify vault api token")
+		var ok bool
+		*token, ok = os.LookupEnv("VAULT_TOKEN")
+		if !ok {
+			log.Fatal("please supply vault token")
+		}
 	}
 
 	// connect and set up authentication to vault
@@ -121,6 +126,7 @@ func main() {
 				ValidUntil: decoded.NotAfter,
 				Serial:     serial.(string),
 				Revoked:    rev,
+				Expired:    time.Now().After(decoded.NotAfter),
 			})
 		}
 	}
