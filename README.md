@@ -1,17 +1,17 @@
 Tool to search through Vault PKI backend by subject name and report revocation status.
 
 ```
-> ./pkifind -help
-Usage of ./pkifind:
+> pkifind -help
+Usage of pkifind:
+  -address string
+        override VAULT_ADDR environment variable
   -ca string
-        vault pki mount to search through
-  -s string
+        vault pki mount to search through (default "pki")
+  -search string
         common name search term
   -token string
-        vault api token
-  -vault string
-        address of vault api (default "http://localhost:8200")
-> ./pkifind -ca pki-test -token $(cat ~/.vault-token) -s "mr-test" | jq
+        override VAULT_TOKEN environment variable
+> ./pkifind -ca pki-test -s "mr-test"
 [
     {
         "common_name": "mr-test-1.client-test.vpn",
